@@ -1,0 +1,67 @@
+.my-btn {
+  padding: 2px 4px;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  margin: 3px 3px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.danger {
+  background-color: #d40d0d;
+}
+
+.info {
+  background-color: #2e94d9;
+}
+
+.filter-item {
+  width: 200px !important;
+  display: inline-block !important;
+  margin: 10px;
+  box-shadow: none !important;
+}
+
+.my-toast {
+  max-width: 350px;
+  overflow: hidden;
+  font-size: 0.875rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  border-radius: 0.25rem;
+}
+
+.day-box {
+  display: inline-block;
+  width: 60px;
+  padding: 3px 10px;
+  margin: 3px;
+  border: 0.5px solid #ddd;
+  border-radius: 2px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.day-box:hover {
+  background-color: #aaa;
+}
+
+.disable-day-box {
+  cursor: not-allowed;
+}
+
+.blue {
+  background-color: #57cbeb;
+}
+
+.info:hover {
+  color: #fff;
+  text-decoration: none;
+}

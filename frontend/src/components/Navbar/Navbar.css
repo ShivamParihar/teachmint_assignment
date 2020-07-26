@@ -1,0 +1,13 @@
+.navbar {
+  background: #373b44;
+  background: -webkit-linear-gradient(to right, #4286f4, #373b44);
+  background: linear-gradient(to right, #4286f4, #373b44);
+  padding: 0.1rem 0.5rem !important;
+  height: 9vh;
+  position: fixed;
+  z-index: 1;
+}
+
+.website-logo {
+  width: 170px;
+}
