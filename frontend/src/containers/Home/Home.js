@@ -63,13 +63,12 @@ export default function Profile() {
 
         <div className="row">
           <div className="col-lg-4 col-md-6 col-sm-12">
-            <label>Select Subject</label>
+            <label style={{ width: "100%" }}>Select Subject</label>
             <select
               className="form-control filter-item"
               value={subjectSelected}
               onChange={(event) => {
                 setsubjectSelected(event.target.value);
-                console.log(event.target.value);
               }}
             >
               <option value="all">All</option>
@@ -78,13 +77,12 @@ export default function Profile() {
           </div>
 
           <div className="col-lg-4 col-md-6 col-sm-12">
-            <label>Select Classname</label>
+            <label style={{ width: "100%" }}>Select Classname</label>
             <select
               className="form-control filter-item"
               value={classNameSelected}
               onChange={(event) => {
                 setclassNameSelected(event.target.value);
-                console.log(event.target.value);
               }}
             >
               <option value="all">All</option>
@@ -93,13 +91,12 @@ export default function Profile() {
           </div>
 
           <div className="col-lg-4 col-md-6 col-sm-12">
-            <label>Apply Sorting</label>
+            <label style={{ width: "100%" }}>Apply Sorting</label>
             <select
               className="form-control filter-item"
               value={sortBy}
               onChange={(event) => {
                 setsortBy(event.target.value);
-                console.log(event.target.value);
               }}
             >
               <option value="all">None</option>

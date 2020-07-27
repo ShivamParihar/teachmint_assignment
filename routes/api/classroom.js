@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const { check, validationResult } = require("express-validator");
 
 const { shivamAuth, userAuth } = require("../../middleware/auth");
 const User = require("../../models/User");
@@ -9,9 +8,9 @@ const Classroom = require("../../models/Classroom");
 const { Types } = require("mongoose");
 const { findOneAndDelete } = require("../../models/User");
 
-// @route    POST api/users
-// @desc     Register user
-// @access   User
+// @route    POST api/classroom/add
+// @desc     Add classroom
+// @access   Teacher
 router.post(
   "/add",
   (req, res, next) => userAuth(req, res, next, "Teacher"),
@@ -56,6 +55,9 @@ router.post(
   }
 );
 
+// @route    GET api/classroom/classroom-list
+// @desc     Get classroom list
+// @access   Teacher, Student
 router.get("/classroom-list", async (req, res) => {
   const { sortBy, classnameFilter, subjectFilter } = req.query;
 
@@ -95,8 +97,7 @@ router.get("/classroom-list", async (req, res) => {
     } else {
       let classrooms = await Classroom.find({
         students: Types.ObjectId(req.user.id),
-      });
-      console.log(classrooms);
+      }).populate("instructorId");
       res.send({ classrooms: classrooms, userType: "Student" });
     }
   } catch (err) {
@@ -105,11 +106,13 @@ router.get("/classroom-list", async (req, res) => {
   }
 });
 
+// @route    DELETE api/classroom/delete-classroom/:id
+// @desc     Delete classroom
+// @access   Teacher
 router.delete(
   "/delete-classroom/:id",
   (req, res, next) => userAuth(req, res, next, "Teacher"),
   async (req, res) => {
-    console.log("asdfg", req.params.id);
     try {
       await Classroom.findOneAndDelete({ Id: req.params.id });
       res.send("Deleted successfully");
@@ -120,6 +123,9 @@ router.delete(
   }
 );
 
+// @route    GET api/classroom/specfic-classroom/id
+// @desc     Get information of particular class
+// @access   Teacher, Student
 router.get("/specfic-classroom/:id", async (req, res) => {
   const token = req.header("x-auth-token");
   if (!token) {
@@ -130,7 +136,9 @@ router.get("/specfic-classroom/:id", async (req, res) => {
     const decoded = jwt.verify(token, process.env.jwtSecret);
     req.user = decoded.user;
 
-    const data = await Classroom.findOne({ Id: req.params.id });
+    const data = await Classroom.findOne({ Id: req.params.id }).populate(
+      "instructorId"
+    );
     res.send({ data: data, userType: req.user.userType });
   } catch (err) {
     console.log(err);
@@ -138,6 +146,9 @@ router.get("/specfic-classroom/:id", async (req, res) => {
   }
 });
 
+// @route    POST api/classroom/update-classroom
+// @desc     Update classroom
+// @access   Teacher
 router.post(
   "/update-classroom",
   (req, res, next) => userAuth(req, res, next, "Teacher"),

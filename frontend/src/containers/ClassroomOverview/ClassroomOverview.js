@@ -10,7 +10,8 @@ export default function ClassroomOverview(props) {
   const [data, setData] = useState({});
   const [userType, setuserType] = useState("Student");
 
-  const [saveToast, setsaveToast] = useState(false);
+  const [toast, settoast] = useState(false);
+  const [toastMsg, settoastMsg] = useState(false);
 
   useEffect(() => {
     axios
@@ -45,10 +46,28 @@ export default function ClassroomOverview(props) {
           },
         }
       )
-      .then(setsaveToast(true))
+      .then(() => {
+        settoast(true);
+        settoastMsg("Updated Successfully");
+      })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  // @input - String: Classroom Id
+  // @function - delete classroom
+  const HandleDeleteClassroom = async (Id) => {
+    axios
+      .delete(`/api/classroom/delete-classroom/${Id}`, {
+        headers: {
+          "x-auth-token": localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        props.history.push("/home");
+      })
+      .catch(console.log("error"));
   };
 
   // @input - String: userType (ex- Teacher), Number: index of the day
@@ -65,11 +84,8 @@ export default function ClassroomOverview(props) {
     <>
       <Navbar />
       <div className="container pt-5 mb-5">
-        {saveToast ? (
-          <Toast
-            message="Updated Successfully"
-            setToastFunction={setsaveToast}
-          />
+        {toast ? (
+          <Toast message={toastMsg} setToastFunction={settoast} />
         ) : null}
 
         <div className="card shadow">
@@ -147,6 +163,21 @@ export default function ClassroomOverview(props) {
                     value={data["students"] ? data["students"].length : 0}
                   />
                 </div>
+                {userType === "Student" ? (
+                  <div className="col-lg-6 col-md-12 mt-4">
+                    <label>Instructor Name</label>
+                    <InputField
+                      name="instructorName"
+                      type="text"
+                      placeholder="Instructor Name"
+                      value={
+                        data["instructorId"] ? data["instructorId"]["name"] : ""
+                      }
+                      userType={userType}
+                      handleChange={handleChange}
+                    />
+                  </div>
+                ) : null}
               </div>
 
               <div className="row mt-4">
@@ -155,15 +186,26 @@ export default function ClassroomOverview(props) {
             </form>
 
             {userType === "Teacher" ? (
-              <button
-                className="my-btn info"
-                style={{ float: "right", padding: "4px 15px" }}
-                onClick={() => {
-                  onSubmit();
-                }}
-              >
-                Save
-              </button>
+              <div>
+                <button
+                  className="my-btn info"
+                  style={{ float: "right", padding: "4px 15px" }}
+                  onClick={() => {
+                    onSubmit();
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  className="my-btn danger"
+                  style={{ float: "right", padding: "4px 15px" }}
+                  onClick={() => {
+                    HandleDeleteClassroom(props.match.params.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             ) : (
               ""
             )}

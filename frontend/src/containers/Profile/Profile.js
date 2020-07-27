@@ -19,7 +19,6 @@ export default function Profile() {
       })
       .then(({ data }) => {
         setdata(data);
-        console.log(data);
       });
   }, []);
 

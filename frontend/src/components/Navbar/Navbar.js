@@ -1,7 +1,6 @@
 import React from "react";
 import "./Navbar.css";
 import { Link, withRouter } from "react-router-dom";
-import { PromiseProvider } from "mongoose";
 
 function Navbar(props) {
   return (
@@ -27,7 +26,7 @@ function Navbar(props) {
 
       <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul className="navbar-nav ml-auto mt-lg-0">
-          <li className="nav-item active">
+          <li className="nav-item">
             <Link className="nav-link" to="/home">
               Home
             </Link>

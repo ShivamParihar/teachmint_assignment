@@ -29,7 +29,7 @@ export const createClassroomTable = (
       <td>{element["subject"]}</td>
       <td>{`${element["startTime"]} - ${element["endTime"]}`}</td>
       <td>{getDaysList(element["days"])}</td>
-      {userType === "Student" ? <td>Instructor</td> : ""}
+      {userType === "Student" ? <td>{element["instructorId"]["name"]}</td> : ""}
       <td>
         <Link className="my-btn info" to={`classroom-details/${element["Id"]}`}>
           Info
@@ -60,7 +60,6 @@ export const getsubjectDropdown = (classroomRawData) => {
     (element) => element["subject"]
   );
   subjectDropdownTemp = Array.from(new Set(subjectDropdownTemp));
-  console.log("getsubjectDropdown", subjectDropdownTemp);
   return subjectDropdownTemp.map((element, index) => (
     <option key={index} value={element}>
       {element}
@@ -76,7 +75,6 @@ export const getclassNameDropdown = (classroomRawData) => {
     (element) => element["name"]
   );
   classNameDropdownTemp = Array.from(new Set(classNameDropdownTemp));
-  console.log("getclassNameDropdown", classNameDropdownTemp);
   return classNameDropdownTemp.map((element, index) => (
     <option key={index} value={element}>
       {element}

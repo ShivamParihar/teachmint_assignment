@@ -6,9 +6,9 @@ const { check, validationResult } = require("express-validator");
 const { adminAuth, userAuth } = require("../../middleware/auth");
 const User = require("../../models/User");
 
-// @route    POST api/users
+// @route    POST api/users/add
 // @desc     Register user
-// @access   Public
+// @access   Admin
 router.post(
   "/add",
   [
@@ -58,6 +58,9 @@ router.post(
   }
 );
 
+// @route    POST api/users/login
+// @desc     Login user
+// @access   Teacher, Student
 router.post("/login", async (req, res) => {
   const { phone, otp, userType } = req.body;
 
@@ -93,6 +96,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// @route    POST api/users/get-info
+// @desc     Get particular user info
+// @access   Teacher, Student
 router.get("/get-info", async (req, res) => {
   const token = req.header("x-auth-token");
   if (!token) {
