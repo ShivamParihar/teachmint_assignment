@@ -10,19 +10,13 @@ function App(props) {
     <Router>
       <Switch>
         <Route exact path="/" component={Login} />
-        {localStorage.getItem("token") ? (
-          <>
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/profile" component={Profile} />
-            <Route
-              exact
-              path="/classroom-details/:id"
-              component={ClassroomOverview}
-            />
-          </>
-        ) : (
-          <></>
-        )}
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/profile" component={Profile} />
+        <Route
+          exact
+          path="/classroom-details/:id"
+          component={ClassroomOverview}
+        />
       </Switch>
     </Router>
   );
