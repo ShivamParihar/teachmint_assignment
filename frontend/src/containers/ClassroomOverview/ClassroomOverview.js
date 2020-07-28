@@ -6,7 +6,6 @@ import Toast from "../../components/Toast/Toast";
 import InputField from "../../components/InputField/InputField";
 
 export default function ClassroomOverview(props) {
-  const days = ["Mon", "Tues", "Wed", "Thus", "Fri", "Sat", "Sun"];
   const [data, setData] = useState({});
   const [userType, setuserType] = useState("Student");
 

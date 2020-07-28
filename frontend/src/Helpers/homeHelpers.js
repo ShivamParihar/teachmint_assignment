@@ -23,7 +23,7 @@ export const createClassroomTable = (
   HandleDeleteClassroom
 ) => {
   return classroomRawData.map((element, index) => (
-    <tr>
+    <tr key={index}>
       <th scope="row">{index + 1}</th>
       <td>{element["name"]}</td>
       <td>{element["subject"]}</td>
